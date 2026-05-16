@@ -60,15 +60,30 @@ def big_enough(userInput, ask):
     return userInput
 
 
+#######################################################################
+# Function: cycle_loop
+# Description: loops through the decreasing cycle time until the desired time is reached or the user quits
+# Parameters: goalTime = the goal cycle time
+#             cycleTime = the cycle time for the current iteration
+#             slope = the slope for the decrease in cycle time
+# Return values: none but prints the cycle time for each iteration
+# Pre-Conditions:
+# Post-Conditions:
+#######################################################################
 def cycle_loop(goalTime, cycleTime, slope):
+    # Counts every 100 to add to the current cycle when printed
     loops = 0
+
+    # Loops through decreasing the cycle time and checking if it is lower than the goal
     while cycleTime > goalTime:
+        # Loops 100 times or until the goal cycle time is reached
         for i in range(1, 101):
             print(f"Cycle: {i + loops}  {cycleTime:.3f}")
             if cycleTime < goalTime:
                 print(f"The desired cycle time has been achieved!\nThe learning percent was {(100 * 2 ** slope):.0f}%")
                 sys.exit()
             cycleTime = cycleTime * 2 ** slope
+        # Checks if the user wants to continue after 100 cycles
         print(f"{loops + 100} cycles have been checked!")
         cont = input('Do you want to continue? Enter "n" to quit: ')
         if cont.lower() == "n":
@@ -106,6 +121,7 @@ def main():
         slope = input("Enter the slope as a number less than 0: ")
         slope = error_check(slope, "Enter the slope as a number less than 0: ")
 
+    # Takes the input values and loops them to find the goal cycle time
     cycle_loop(goalTime, firstTime, slope)
 
 main()
